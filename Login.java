@@ -1,4 +1,4 @@
-package project;
+package ui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -76,18 +76,21 @@ public class Login extends JFrame {
                 @SuppressWarnings("deprecation")
 				String password = passwordField.getText();
                 try {
-                	//connecting sql
-                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Login",
+                	//connecting 
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/login",
                         "root", "Jaya@1234");
                     //selecting the query
                     PreparedStatement st = (PreparedStatement) connection
-                        .prepareStatement("Select name, password from student where name=? and password=?");
+                        .prepareStatement("Select name, password from logindetails where name=? and password=?");
 
                     st.setString(1, userName);
                     st.setString(2, password);
                     ResultSet rs = st.executeQuery();
                     if (rs.next()) {
                         dispose();
+                        Userhome ah = new Userhome(userName);
+                        ah.setTitle("Welcome");
+                        ah.setVisible(true);
                         JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
                     } else {
                         JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
