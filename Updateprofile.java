@@ -54,8 +54,8 @@ public class Updateprofile extends JFrame {
                         PreparedStatement st = (PreparedStatement) con
                             .prepareStatement("Update logindetails set address=? where name=?");
 
-                        st.setString(4, address);
                         st.setString(2, name);
+                        st.setString(1, address);
                         //update the table
                         st.executeUpdate();
                         JOptionPane.showMessageDialog(btnSearch, "address has been successfully changed");
